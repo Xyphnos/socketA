@@ -13,9 +13,19 @@ const appendMessage = (message) => {
     messages.append(mE);
 };
 
-const name = prompt('Enter a username');
-appendMessage('Connected');
-socket.emit('new-user', name);
+if(messageForm != null){
+    const name = prompt('Enter a username');
+    appendMessage('Connected');
+    socket.emit('new-user', roomName, name);
+
+    messageForm.addEventListener('submit', (event) =>{
+        event.preventDefault();
+        const message = messageInput.value;
+        appendMessage(`you: ${message}`);
+        socket.emit('chat-message', roomName, message);
+        messageInput.value = '';
+    });
+}
 
 socket.on('chat-message', data =>{
     appendMessage(`${data.name}: ${data.message}`);
@@ -37,12 +47,4 @@ socket.on('new-room', room =>{
     roomLink.innerText = 'join';
     roomContainer.append(roomElement);
     roomContainer.append(roomLink);
-});
-
-messageForm.addEventListener('submit', (event) =>{
-    event.preventDefault();
-    const message = messageInput.value;
-    appendMessage(`you: ${message}`);
-    socket.emit('chat-message', message);
-    messageInput.value = '';
 });
