@@ -1,0 +1,27 @@
+html,
+body{
+    height: 100%;
+    width: 100%;
+}
+#input-form{
+    position: fixed;
+    left: 50%;
+    bottom: 20px;
+    transform: translate(-50%, -50%);
+    margin: 0 auto;
+}
+#txt-input{
+    width: 300px;
+    height: 30px;
+}
+#sendB{
+    width: 100px;
+    height: 40px;
+}
+#msg-field{
+    position: fixed;
+    left: 50%;
+    bottom: 100px;
+    transform: translate(-50%, -50%);
+    margin: 0 auto;
+}
