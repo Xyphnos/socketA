@@ -5,12 +5,12 @@ const messageForm = document.getElementById('input-form');
 const messageInput = document.getElementById('txt-input');
 const messages = document.getElementById('msg-field');
 
+
 const appendMessage = (message) => {
     const mE = document.createElement('div');
     mE.innerText = message;
     messages.append(mE);
 };
-
 
 const name = prompt('Enter a username');
 appendMessage('Connected');
@@ -23,10 +23,14 @@ socket.on('chat-message', data =>{
 socket.on('user-connected', name =>{
     appendMessage(`${name} Connected`);
 });
+socket.on('user-disconnected', name =>{
+    appendMessage(`${name} Disconnected`);
+});
 
 messageForm.addEventListener('submit', (event) =>{
     event.preventDefault();
     const message = messageInput.value;
+    appendMessage(`you: ${message}`);
     socket.emit('chat-message', message);
     messageInput.value = '';
 });

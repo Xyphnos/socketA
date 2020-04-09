@@ -18,7 +18,8 @@ io.on('connection', (socket) => {
     });
 
     socket.on('disconnect', () => {
-        console.log('a user disconnected', socket.id);
+        socket.broadcast.emit('user-disconnected', users[socket.id]);
+        delete users[socket.id];
     });
 
     socket.on('chat-message', (message) => {
