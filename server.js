@@ -4,10 +4,18 @@ const express = require('express');
 const app = express();
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
+const roomRoute = require('./routes/roomRoute');
+const path = require('path')
 
+app.set('views', './views');
+app.set('view engine', 'ejs');
 app.use(express.static('public'));
+app.use(express.urlencoded({extended: true}));
+app.use('/public', express.static(path.join(__dirname, "public")));
 
 const users = {};
+
+app.use('/', roomRoute);
 
 io.on('connection', (socket) => {
 
